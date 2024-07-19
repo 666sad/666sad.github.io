@@ -6,7 +6,6 @@
     <title>Catalog</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="header">
@@ -231,44 +230,26 @@
 
     // Buy button functionality
     buyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const card = this.closest('.product-card');
-            const productName = card.querySelector('.product-name').textContent;
-            const productPrice = card.querySelector('.product-price').textContent;
-            
-            // Получение имени пользователя из Telegram WebApp
-            const userName = window.Telegram.WebApp.initDataUnsafe.user.username || 'Unknown User';
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+                    const productDescription = productCard.querySelector('.product-description').textContent;
 
-            // Отправка данных на сервер
-            fetch('/send-order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    productName,
-                    productPrice,
-                    userName
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    this.style.animation = 'float 2s ease-out forwards';
-                    setTimeout(() => {
-                        window.location.href = data.managerUrl;
-                    }, 4000);
-                } else {
-                    alert('Не удалось отправить заказ. Пожалуйста, попробуйте еще раз.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте позже.');
+                    // Replace this with your bot's username
+                    const botUsername = 'Voricty';
+
+                    // Construct the message to send
+                    const message = `Покупка: ${productName}, Цена: ${productPrice}. Описание: ${productDescription}`;
+                    const encodedMessage = encodeURIComponent(message);
+
+                    // Construct the Telegram URL
+                    const telegramUrl = `https://t.me/${botUsername}?start=${encodedMessage}`;
+
+                    // Redirect to the Telegram URL
+                    window.location.href = telegramUrl;
+                });
             });
-        });
-    });
 
     // Populate brand filter
     const brands = new Set();

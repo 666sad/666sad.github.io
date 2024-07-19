@@ -260,13 +260,20 @@
     function toggleFilter(event) {
         event.preventDefault();
         event.stopPropagation();
-        if (brandFilter.style.display === 'none' || brandFilter.style.display === '') {
-            brandFilter.style.display = 'block';
-            filterButton.classList.add('active');
+        
+        if (brandFilter.classList.contains('show')) {
+            brandFilter.classList.remove('show');
+            setTimeout(() => {
+                brandFilter.style.display = 'none';
+            }, 300); // Задержка должна соответствовать длительности transition в CSS
         } else {
-            brandFilter.style.display = 'none';
-            filterButton.classList.remove('active');
+            brandFilter.style.display = 'block';
+            setTimeout(() => {
+                brandFilter.classList.add('show');
+            }, 10); // Небольшая задержка для обеспечения применения display: block
         }
+        
+        filterButton.classList.toggle('active');
     }
 
     filterButton.addEventListener('click', toggleFilter);
@@ -279,10 +286,13 @@
         }
     });
 
-    // Close filter when clicking outside
-    document.addEventListener('click', function(event) {
+   // Закрытие фильтра при клике вне его
+   document.addEventListener('click', function(event) {
         if (!filterButton.contains(event.target) && !brandFilter.contains(event.target)) {
-            brandFilter.style.display = 'none';
+            brandFilter.classList.remove('show');
+            setTimeout(() => {
+                brandFilter.style.display = 'none';
+            }, 300);
             filterButton.classList.remove('active');
         }
     });

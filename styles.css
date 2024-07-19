@@ -342,3 +342,43 @@ body {
     color: #000;
     font-size: 12px;
 }
+
+@font-face {
+    font-family: 'CoreSansG35Light';
+    src: url('core-sans-g-35-light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#brandFilter {
+    font-family: "CoreSansG35Light", Arial, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    color: #231F20;
+}
+
+#brandFilter {
+    /* Существующие стили */
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Добавьте эти стили */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#brandFilter.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

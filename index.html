@@ -223,33 +223,53 @@
     </div>
     <script>
  document.addEventListener('DOMContentLoaded', function() {
-    const buyButtons = document.querySelectorAll('.buy-button');
-    const filterButton = document.getElementById('filterButton');
-    const brandFilter = document.getElementById('brandFilter');
-    const productCards = document.querySelectorAll('.product-card');
+            const buyButtons = document.querySelectorAll('.buy-button');
+            const filterButton = document.getElementById('filterButton');
+            const brandFilter = document.getElementById('brandFilter');
+            const productCards = document.querySelectorAll('.product-card');
 
-    // Buy button functionality
+            // Buy button functionality
+            function formatMessageToSingleLine(message) {
+        return message.replace(/\s+/g, ' ');
+    }
+
     buyButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productCard = this.closest('.product-card');
-                    const productName = productCard.querySelector('.product-name').textContent;
-                    const productPrice = productCard.querySelector('.product-price').textContent;
-                    const productDescription = productCard.querySelector('.product-description').textContent;
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('.product-name').textContent;
+            const productPrice = productCard.querySelector('.product-price').textContent;
+            const productDescription = productCard.querySelector('.product-description').textContent;
 
-                    // Replace this with your bot's username
-                    const botUsername = 'Voricty';
+            // Имя пользователя, которому будет отправлено сообщение
+            const username = 'Voricty';
 
-                    // Construct the message to send
-                    const message = `Покупка: ${productName}, Цена: ${productPrice}. Описание: ${productDescription}`;
-                    const encodedMessage = encodeURIComponent(message);
+            // Формируем сообщение для отправки и делаем его в одну строку
+            let message = `Здравствуйте, хочу купить: ${productName}, Цена: ${productPrice}. Описание: ${productDescription}`;
+            message = formatMessageToSingleLine(message);
+            const encodedMessage = encodeURIComponent(message);
 
-                    // Construct the Telegram URL
-                    const telegramUrl = `https://t.me/${botUsername}?start=${encodedMessage}`;
+            // Ссылка на конкретного пользователя
+            const telegramUrl = `https://t.me/${username}?text=${encodedMessage}`;
 
-                    // Redirect to the Telegram URL
-                    window.location.href = telegramUrl;
+            // Перенаправляем на Telegram URL
+            window.location.href = telegramUrl;
+        });
+    });
+
+
+            // Example filter functionality
+            filterButton.addEventListener('click', function() {
+                const filterText = brandFilter.value.toLowerCase();
+                productCards.forEach(card => {
+                    const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                    if (productName.includes(filterText)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             });
+        
 
     // Populate brand filter
     const brands = new Set();

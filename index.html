@@ -6,6 +6,7 @@
     <title>Catalog</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="header">
@@ -231,10 +232,41 @@
     // Buy button functionality
     buyButtons.forEach(button => {
         button.addEventListener('click', function() {
-            this.style.animation = 'float 2s ease-out forwards';
-            setTimeout(() => {
-                window.location.href = 'https://t.me/';
-            }, 2000);
+            const card = this.closest('.product-card');
+            const productName = card.querySelector('.product-name').textContent;
+            const productPrice = card.querySelector('.product-price').textContent;
+            
+            // Получение имени пользователя из Telegram WebApp
+            const userName = window.Telegram.WebApp.initDataUnsafe.user.username || 'Unknown User';
+
+            // Отправка данных на сервер
+            fetch('/send-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productName,
+                    productPrice,
+                    userName
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    this.style.animation = 'float 2s ease-out forwards';
+                    setTimeout(() => {
+                        window.location.href = data.managerUrl;
+                    }, 4000);
+                } else {
+                    alert('Не удалось отправить заказ. Пожалуйста, попробуйте еще раз.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте позже.');
+            });
         });
     });
 
@@ -340,19 +372,22 @@ productCards.forEach(card => {
     imageContainer.appendChild(zoomButton);
 
     zoomButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const overlay = document.createElement('div');
-        overlay.className = 'zoomed-image-overlay';
-        
-        const zoomedImage = document.createElement('img');
-        zoomedImage.src = productImage.src;
-        zoomedImage.className = 'zoomed-image';
-        
-        overlay.appendChild(zoomedImage);
-        document.body.appendChild(overlay);
+    e.stopPropagation();
+    const overlay = document.createElement('div');
+    overlay.className = 'zoomed-image-overlay';
+    
+    const zoomedImage = document.createElement('img');
+    zoomedImage.src = productImage.src;
+    zoomedImage.className = 'zoomed-image';
+    
+    overlay.appendChild(zoomedImage);
+    document.body.appendChild(overlay);
 
-        overlay.addEventListener('click', function() {
+    overlay.addEventListener('click', function(event) {
+        // Проверяем, был ли клик непосредственно на overlay, а не на изображении
+        if (event.target === overlay) {
             document.body.removeChild(overlay);
+        }
         });
     });
 });

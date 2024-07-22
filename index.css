@@ -1,0 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Graphik:wght@500&display=swap');
+
+body {
+    font-family: 'Graphik-Medium', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--tg-theme-bg-color, #e0e0e0);
+    color: var(--tg-theme-text-color, #000000);
+}
+
+.header {
+    background-color: rgba(245, 235, 220, 0.7); /* Нежный полупрозрачный бежевый */
+    padding: 40px 20px; /* Увеличенный вертикальный padding для большего пространства */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.slogan {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: #333;
+    padding: 5px 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    animation: slideInToCenter 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes slideInToCenter {
+    0% {
+        opacity: 0;
+        left: -100%;
+    }
+    100% {
+        opacity: 1;
+        left: 50%;
+    }
+}
+
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    width: 200px;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid var(--tg-theme-hint-color, #eee);
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+    background-color: var(--tg-theme-bg-color, #ffffff);
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Golden glow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    position: relative;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.product-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-description {
+    color: var(--tg-theme-hint-color, #a9a9a9);
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    font-style: italic;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    flex-grow: 1;
+}
+
+.product-price {
+    color: var(--tg-theme-hint-color, #888);
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    width: 100%; /* Make the button full-width */
+    padding: 10px 15px; /* 10px vertical padding, 15px horizontal padding */
+    background-color: var(--tg-theme-button-color, #4CAF50);
+    color: var(--tg-theme-button-text-color, white);
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+    font-size: 1.1em;
+    opacity: 1;
+    margin-top: auto;
+    position: relative;
+}
+
+.buy-button:active {
+    animation: float 2s ease-out forwards;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-5px);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    75% {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog {
+        padding: 10px;
+    }
+    
+    .product-card {
+        margin: 5px;
+    }
+}
+
+.filter-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Убираем эффект при наведении и нажатии */
+.filter-button:hover,
+.filter-button:focus,
+.filter-button:active {
+    outline: none;
+    background-color: transparent;
+}
+
+.filter-button:active,
+.filter-button.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+#filterButton:hover {
+    background-color: rgba(69, 160, 73, 0.9); /* Немного менее прозрачный при наведении */
+}
+
+#brandFilter {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px); /* Эффект размытия фона */
+    border: 1px solid rgba(204, 204, 204, 0.5); /* Полупрозрачная граница */
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .filter-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .filter-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .filter-button:active,
+    .filter-button.active {
+        background-color: rgba(0, 0, 0, 0.2); /* Немного темнее для лучшей видимости на мобильных */
+    }
+}
+
+#brandFilter label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Цвет текста */
+}
+
+#brandFilter input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Стилизация скроллбара для Webkit браузеров */
+#brandFilter::-webkit-scrollbar {
+    width: 10px;
+}
+
+#brandFilter::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0.8);
+}
+
+#brandFilter::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.8);
+    border-radius: 5px;
+}
+
+#brandFilter::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.9);
+}
+.filter-button.active {
+    /* Здесь вы можете добавить стили для активного состояния кнопки, если нужно */
+    background-color: rgba(0, 0, 0, 0.1); /* Пример: легкое затемнение фона */
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.zoom-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    
+    /* Добавьте эти свойства */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+.zoom-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Убираем эффект при наведении */
+.zoom-button:hover {
+    background-color: transparent;
+}
+
+.zoomed-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.zoomed-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+
+
+/* Custom Checkbox Styles */
+#brandFilter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+#brandFilter input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #333;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+#brandFilter input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 12px;
+}
+
+@font-face {
+    font-family: 'CoreSansG35Light';
+    src: url('core-sans-g-35-light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#brandFilter {
+    font-family: "CoreSansG35Light", Arial, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    color: #231F20;
+}
+
+#brandFilter {
+    /* Существующие стили */
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Добавьте эти стили */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#brandFilter.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#brandFilter input[type="checkbox"] {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#brandFilter input[type="checkbox"]:focus {
+    outline: none;
+}
+
+
+.question-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Убираем эффект при наведении и нажатии */
+.question-button:hover,
+.question-button:focus,
+.question-button:active {
+    outline: none;
+    background-color: transparent;
+}
+
+.question-button:active,
+.question-button.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#questionButton:hover {
+    background-color: rgba(69, 160, 73, 0.9); /* Немного менее прозрачный при наведении */
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .question-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .question-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-button:active,
+    .question-button.active {
+        background-color: rgba(0, 0, 0, 0.2); /* Немного темнее для лучшей видимости на мобильных */
+    }
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between; /* Расположение контентов на разных концах */
+    align-items: center; /* Вертикальное выравнивание */
+    padding: 10px; /* Отступы для визуального комфорта */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+}
+
+.question-container, .filter-container {
+    display: flex;
+    align-items: center; /* Выравнивание кнопок по центру их контейнеров */
+    flex: 1; /* Контейнеры занимают равное пространство */
+    padding: 0;
+    margin: 0;
+}
+
+.question-container {
+    justify-content: flex-start; /* Выравнивание кнопки вопроса к началу */
+}
+
+.filter-container {
+    justify-content: flex-end; /* Выравнивание кнопки фильтра к концу */
+}
+
+.question-button, .filter-button {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    padding: 0;
+}
+
+.question-icon, .filter-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .question-button, .filter-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .question-icon, .filter-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-button:active, .question-button.active,
+    .filter-button:active, .filter-button.active {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media (max-width: 768px) {
+    .question-button, .filter-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .question-icon, .filter-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-button:active, .question-button.active,
+    .filter-button:active, .filter-button.active {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}

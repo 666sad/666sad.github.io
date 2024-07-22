@@ -137,31 +137,6 @@ body {
         margin: 5px;
     }
 }
-.filter-container {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-}
-
-.filter-button {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    transition: background-color 0.3s;
-}
 
 .filter-icon {
     width: 100%;
@@ -392,4 +367,111 @@ body {
 
 #brandFilter input[type="checkbox"]:focus {
     outline: none;
+}
+
+
+.question-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Убираем эффект при наведении и нажатии */
+.question-button:hover,
+.question-button:focus,
+.question-button:active {
+    outline: none;
+    background-color: transparent;
+}
+
+.question-button:active,
+.question-button.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#questionButton:hover {
+    background-color: rgba(69, 160, 73, 0.9); /* Немного менее прозрачный при наведении */
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .question-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .question-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-button:active,
+    .question-button.active {
+        background-color: rgba(0, 0, 0, 0.2); /* Немного темнее для лучшей видимости на мобильных */
+    }
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between; /* Расположение контентов на разных концах */
+    align-items: center; /* Вертикальное выравнивание */
+    padding: 10px; /* Отступы для визуального комфорта */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+}
+
+.question-container, .filter-container {
+    display: flex;
+    align-items: center; /* Выравнивание кнопок по центру их контейнеров */
+    flex: 1; /* Контейнеры занимают равное пространство */
+    padding: 0;
+    margin: 0;
+}
+
+.question-container {
+    justify-content: flex-start; /* Выравнивание кнопки вопроса к началу */
+}
+
+.filter-container {
+    justify-content: flex-end; /* Выравнивание кнопки фильтра к концу */
+}
+
+.question-button, .filter-button {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    padding: 0;
+}
+
+.question-icon, .filter-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .question-button, .filter-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .question-icon, .filter-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-button:active, .question-button.active,
+    .filter-button:active, .filter-button.active {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
 }

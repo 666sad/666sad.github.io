@@ -382,3 +382,14 @@ body {
     visibility: visible;
     transform: translateY(0);
 }
+
+#brandFilter input[type="checkbox"] {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#brandFilter input[type="checkbox"]:focus {
+    outline: none;
+}
